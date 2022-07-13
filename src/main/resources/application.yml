@@ -8,7 +8,7 @@ spring:
     show-sql: on
     generate-ddl: on
     hibernate:
-      ddl-auto: 'create-drop'
+      ddl-auto: 'update'
   jackson:
     date-format: 'yyyy-MM-dd'
   kafka:

@@ -24,7 +24,7 @@ public class Visitor {
     private LocalDateTime registered;
     private String phone;
     private int age;
-//    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "visitor")
