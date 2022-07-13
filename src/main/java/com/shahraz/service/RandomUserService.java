@@ -5,13 +5,11 @@ import com.shahraz.model.Gender;
 import com.shahraz.model.Visitor;
 import com.shahraz.model.dto.ResultDto;
 import com.shahraz.model.dto.Results;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -23,6 +21,7 @@ public class RandomUserService {
 
     private final RestTemplate restTemplate;
     private final VisitorService visitorService;
+    private final AddressService addressService;
 
     private Results results;
 
@@ -54,7 +53,21 @@ public class RandomUserService {
         visitor.setAge(results.getRegistered().getAge());
         visitor.setPhone(results.getPhone());
         visitor.setGender(Gender.valueOf(results.getGender().toUpperCase()));
-        visitor.setAddress(setVisitorAddress(results));
+//        visitor.setAddresses(setVisitorAddress(results));
+
+        Address address = new Address();
+        List<Address> addressList = new ArrayList<>();
+
+        address.setStreet(results.getLocation().getStreet().getName());
+        address.setCountry(results.getLocation().getCountry());
+        address.setCity(results.getLocation().getCity());
+        address.setNumber(results.getLocation().getStreet().getNumber());
+        address.setState(results.getLocation().getState());
+        address.setVisitor(visitor);
+        addressList.add(address);
+
+        visitorService.save(visitor);
+        addressService.save(address);
 
         return visitor;
     }
@@ -68,6 +81,7 @@ public class RandomUserService {
         address.setCity(results.getLocation().getCity());
         address.setNumber(results.getLocation().getStreet().getNumber());
         address.setState(results.getLocation().getState());
+        addressList.add(address);
 
         return addressList;
     }

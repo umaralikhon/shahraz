@@ -3,11 +3,12 @@ package com.shahraz.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "address")
 @Data
-public class Address {
+public class Address implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +21,7 @@ public class Address {
     private String state;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "address")
+    @JoinColumn(name = "visitor_id")
     private Visitor visitor;
 
 }
