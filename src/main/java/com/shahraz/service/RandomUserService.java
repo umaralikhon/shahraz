@@ -41,6 +41,8 @@ public class RandomUserService {
 
     private Visitor setVisitorData(){
         Visitor visitor = new Visitor();
+        Address address = new Address();
+        List<Address> addressList = new ArrayList<>();
         results = new Results();
         results = getResultsFromNameApi().getResults().get(0);
 
@@ -53,10 +55,6 @@ public class RandomUserService {
         visitor.setAge(results.getRegistered().getAge());
         visitor.setPhone(results.getPhone());
         visitor.setGender(Gender.valueOf(results.getGender().toUpperCase()));
-//        visitor.setAddresses(setVisitorAddress(results));
-
-        Address address = new Address();
-        List<Address> addressList = new ArrayList<>();
 
         address.setStreet(results.getLocation().getStreet().getName());
         address.setCountry(results.getLocation().getCountry());
@@ -64,25 +62,11 @@ public class RandomUserService {
         address.setNumber(results.getLocation().getStreet().getNumber());
         address.setState(results.getLocation().getState());
         address.setVisitor(visitor);
-        addressList.add(address);
 
-        visitorService.save(visitor);
+        addressList.add(address);
+        visitor.setAddresses(addressList);
         addressService.save(address);
 
         return visitor;
-    }
-
-    private List<Address> setVisitorAddress(Results results){
-        Address address = new Address();
-        List<Address> addressList = new ArrayList<>();
-
-        address.setStreet(results.getLocation().getStreet().getName());
-        address.setCountry(results.getLocation().getCountry());
-        address.setCity(results.getLocation().getCity());
-        address.setNumber(results.getLocation().getStreet().getNumber());
-        address.setState(results.getLocation().getState());
-        addressList.add(address);
-
-        return addressList;
     }
 }

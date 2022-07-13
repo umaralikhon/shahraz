@@ -1,5 +1,6 @@
 package com.shahraz.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,8 +21,9 @@ public class Address implements Serializable {
     private String country;
     private String state;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "visitor_id")
+    @JsonIgnore
     private Visitor visitor;
 
 }
