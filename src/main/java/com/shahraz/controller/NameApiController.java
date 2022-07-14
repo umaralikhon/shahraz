@@ -20,4 +20,9 @@ public class NameApiController {
 
         kafkaTemplate.send("save.visitor", "Success");
     }
+
+    @GetMapping("/test-docker")
+    public String helloDocker(){
+        return "Hello from docker";
+    }
 }
