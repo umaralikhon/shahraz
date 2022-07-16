@@ -9,6 +9,9 @@ spring:
     generate-ddl: on
     hibernate:
       ddl-auto: 'update'
+    properties:
+      hibernate:
+        format_sql: true
   jackson:
     date-format: 'yyyy-MM-dd'
   kafka:

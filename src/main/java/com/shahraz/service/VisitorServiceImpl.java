@@ -3,6 +3,8 @@ package com.shahraz.service;
 import com.shahraz.model.Visitor;
 import com.shahraz.service.repository.VisitorRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
@@ -39,5 +41,10 @@ public class VisitorServiceImpl implements VisitorService{
     @Override
     public void saveAll(List<Visitor> visitors) {
         visitorRepository.saveAll(visitors);
+    }
+
+    @Override
+    public Page<Visitor> findAllPages(){
+        return visitorRepository.findAll(PageRequest.of(2,10));
     }
 }
