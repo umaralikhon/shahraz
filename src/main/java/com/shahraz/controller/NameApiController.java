@@ -1,10 +1,9 @@
 package com.shahraz.controller;
 
-import com.shahraz.model.Visitor;
 import com.shahraz.service.RandomUserService;
 import lombok.AllArgsConstructor;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,9 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class NameApiController {
 
     private final RandomUserService randomUserService;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     @GetMapping("/save-user")
-    public Visitor saveRandomUser(){
-        return randomUserService.saveVisitor();
+    public void saveRandomUser() {
+
+        kafkaTemplate.send("save.visitor", "Success");
+    }
+
+    @GetMapping("/test-docker")
+    public String helloDocker(){
+        return "Hello from docker";
     }
 }

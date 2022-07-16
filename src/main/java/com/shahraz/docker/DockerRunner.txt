@@ -1,0 +1,2 @@
+Step 1: docker build -t shahraz:latest . ##-> See Dockerfile
+Step 2: docker run -p 8081:8080 ##-> 8080 is the port where will run application
